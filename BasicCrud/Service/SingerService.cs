@@ -1,5 +1,4 @@
 ﻿using BasicCrud.Models;
-using System.Collections.Generic;
 
 namespace BasicCrud.NewFolder {
     public class SingerService {
