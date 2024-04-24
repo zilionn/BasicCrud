@@ -1,4 +1,5 @@
 ﻿using BasicCrud.Models;
+using BasicCrud.NewFolder;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,9 +10,11 @@ namespace BasicCrud.Controllers {
     public class SingerController : ControllerBase {
 
         private readonly SingerContext _context;
+        private readonly SingerService _service;
 
-        public SingerController(SingerContext context) {
+        public SingerController(SingerContext context, SingerService service) {
             _context = context;
+            _service = service;
         }
 
         [HttpGet]
@@ -34,6 +37,14 @@ namespace BasicCrud.Controllers {
                 return NotFound();
             }
             return Singer;
+        }
+
+        [HttpGet("Sort/byAge")]
+        public async Task<ActionResult<List<Singer>>> GetSortSingers() {
+            List<Singer> SingersReference = await _context.Singer.ToListAsync();
+            var Singers = _service.SortSingersByAge(SingersReference);
+
+            return Singers;
         }
 
         [HttpPost]
@@ -74,7 +85,6 @@ namespace BasicCrud.Controllers {
 
             return Ok();
         }
-
 
     }
 }

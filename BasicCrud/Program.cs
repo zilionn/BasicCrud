@@ -1,4 +1,5 @@
 using BasicCrud.Models;
+using BasicCrud.NewFolder;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +8,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddDbContext<SingerContext>(options => 
 options.UseSqlServer(builder.Configuration.GetConnectionString("SingerCS")));
+
+builder.Services.AddControllers();
+builder.Services.AddScoped<SingerService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
